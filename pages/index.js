@@ -13,7 +13,7 @@ const data = repeat(transformDataToCrates(mockData), 5);
 const CRATE_RECT = {
   width: 200,
   height: 100,
-  depth: 100
+  depth: 150
 };
 
 const getWindow = () => (typeof window === "undefined" ? {} : window);
@@ -35,15 +35,19 @@ const Record = (record, index) => {
             width: ${RECORD_SIZE}px;
             height: ${RECORD_SIZE}px;
             position: absolute;
+            transition: transform 400ms;
             top: 0px;
             left: 0px;
             transform: ${transform};
-            background: ${record.background};
+            background: no-repeat ${record.background}
+              url(${record.images[0].url});
+            background-size: cover;
+            background-position: center center;
             list-style: none;
           }
 
           li:hover {
-            transform: ${transform} translateY(-10px);
+            transform: ${transform} translateY(-100px);
           }
         `}
       </style>
@@ -63,10 +67,11 @@ const Crate = ({ items, mousePosition, index }) => {
             position: absolute;
             top: 50%;
             transform-style: preserve-3d;
-            left: calc(${index * 20}vw);
+            left: calc(${index * (CRATE_RECT.width + 10)}px);
             background: grey;
             transform: rotateX(${-25 + mousePosition.y * 10}deg)
-              rotateY(${yRotation + mousePosition.x * 10}deg);
+              rotateY(${yRotation}deg)
+              translateX(${-mousePosition.x * 400 + 200}px);
           }
 
           ul:before,
@@ -77,16 +82,15 @@ const Crate = ({ items, mousePosition, index }) => {
             height: ${CRATE_RECT.height}px;
             position: absolute;
             background: darkgrey;
+            transform-origin: 0% 50%;
           }
 
           ul:before {
-            transform: translate3d(${-CRATE_RECT.depth / 2}px, 0, 0)
-              rotateY(-90deg) translate3d(${-CRATE_RECT.depth / 2}px, 0, 0);
+            transform: rotateY(90deg);
           }
 
           ul:after {
-            transform: translate3d(${CRATE_RECT.depth * 1.5}px, 0, 0)
-              rotateY(-90deg) translate3d(${-CRATE_RECT.depth / 2}px, 0, 0);
+            transform: translateX(${CRATE_RECT.width}px) rotateY(90deg);
           }
         `}
       </style>
