@@ -21,12 +21,12 @@ const getWindow = () => (typeof window === "undefined" ? {} : window);
 const RECORD_SIZE = 180;
 
 const Record = (record, index) => {
-  const [isPeeking, peek] = useState(false);
   const transform = `translate3d(
     ${(CRATE_RECT.width - RECORD_SIZE) / 2}px,
     ${-RECORD_SIZE / 2}px,
-    -${(index * 3 + 1) * 2}px
+    -${(index * 4 + 1) * 2}px
   )`;
+
   return (
     <li key={record.id}>
       <style jsx>
@@ -55,65 +55,90 @@ const Record = (record, index) => {
   );
 };
 
-const Crate = ({ items, mousePosition, index }) => {
-  const yRotation = 360 - 0 * 20;
-  return (
-    <ul>
-      <style jsx>
-        {`
-          ul {
-            width: ${CRATE_RECT.width}px;
-            height: ${CRATE_RECT.height}px;
-            position: absolute;
-            top: 50%;
-            transform-style: preserve-3d;
-            left: calc(${index * (CRATE_RECT.width + 10)}px);
-            background: grey;
-            transform: rotateX(${-25 + mousePosition.y * 10}deg)
-              rotateY(${yRotation}deg)
-              translateX(${-mousePosition.x * 400 + 200}px);
-          }
+// left: calc(
+//     ${(index - 2) * (CRATE_RECT.width + 10) +
+//       CRATE_RECT.width / 2}px
+// );
 
-          ul:before,
-          ul:after {
-            display: block;
-            content: "";
-            width: ${CRATE_RECT.depth}px;
-            height: ${CRATE_RECT.height}px;
-            position: absolute;
-            background: darkgrey;
-            transform-origin: 0% 50%;
-          }
-
-          ul:before {
-            transform: rotateY(90deg);
-          }
-
-          ul:after {
-            transform: translateX(${CRATE_RECT.width}px) rotateY(90deg);
-          }
-        `}
-      </style>
-      {addIndex(map)(Record, items)}
-    </ul>
-  );
-};
-
-const Crates = ({ crates, mousePosition }) => (
-  <div>
+const Crate = ({ items }) => (
+  <ul>
     <style jsx>
       {`
-        div {
+        ul {
+          width: ${CRATE_RECT.width}px;
+          height: ${CRATE_RECT.height}px;
+          position: relative;
+          transform-style: preserve-3d;
+          background: darkgrey;
+          transform: translateZ(${CRATE_RECT.height / 2}px) rotateX(-90deg);
+        }
+
+        ul:nth-child(3) {
+          z-index: 3;
+        }
+
+        ul:nth-child(4) {
+          z-index: 2;
+        }
+
+        ul:nth-child(5) {
+          z-index: 1;
+        }
+
+        ul:before,
+        ul:after {
+          display: block;
+          content: "";
+          width: ${CRATE_RECT.depth}px;
+          height: ${CRATE_RECT.height}px;
+          background: grey;
+          transform-origin: 0% 50%;
+        }
+
+        ul:before {
+          transform: rotateY(90deg);
+        }
+
+        ul:after {
+          transform: translateX(${CRATE_RECT.width}px)
+            translateY(-${CRATE_RECT.height}px) rotateY(90deg);
         }
       `}
     </style>
+    {addIndex(map)(Record, items)}
+  </ul>
+);
+
+const Table = ({ children, mousePosition }) => (
+  <section>
+    <style jsx>
+      {`
+        section {
+          display: flex;
+          justify-content: space-around;
+          align-items: flex-end;
+          width: 70vw;
+          height: 50vw;
+          background: red;
+          position: relative;
+          transform-style: preserve-3d;
+          transform: rotateX(${55 + mousePosition.y * 5}deg) rotateZ(${mousePosition.x * 5 - 2.5}deg);
+        }
+      `}
+    </style>
+    {children}
+  </section>
+);
+
+const Crates = ({ crates, mousePosition }) => (
+  <Table mousePosition={mousePosition}>
     {addIndex(map)(
       (crate, index) => (
-        <Crate {...crate} mousePosition={mousePosition} index={index} />
+        <Crate {...crate} index={index} />
       ),
       crates
     )}
-  </div>
+  </Table>
 );
 
 const mouseMove = hook => event => {
@@ -138,10 +163,13 @@ export default () => {
           main {
             width: 100vw;
             height: 100vh;
-            display: block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background: black;
             position: relative;
-            perspective: 800px;
+            overflow: hidden;
+            perspective: 50vw;
           }
         `}
       </style>
