@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import randomColor from "randomcolor";
 import { map, pipe, assoc, addIndex, lensProp, over, repeat } from "ramda";
 import mockData from "../data/mock";
@@ -54,11 +54,6 @@ const Record = (record, index) => {
     </li>
   );
 };
-
-// left: calc(
-//     ${(index - 2) * (CRATE_RECT.width + 10) +
-//       CRATE_RECT.width / 2}px
-// );
 
 const Crate = ({ items }) => (
   <ul>
@@ -122,7 +117,9 @@ const Table = ({ children, mousePosition }) => (
           background: red;
           position: relative;
           transform-style: preserve-3d;
-          transform: rotateX(${55 + mousePosition.y * 5}deg) rotateZ(${mousePosition.x * 5 - 2.5}deg);
+          transform: translateX(${-mousePosition.x * 500 + 250}px)
+            rotateX(${55 + mousePosition.y * 5}deg)
+            rotateZ(${mousePosition.x * 5 - 2.5}deg);
         }
       `}
     </style>
@@ -148,6 +145,19 @@ const mouseMove = hook => event => {
   });
 };
 
+const MOUSE_EASE = 0.05;
+const easeMousePositions = ({ hook, mousePosition, scenePosition }) => () => {
+  const xDist = mousePosition.x - scenePosition.x;
+  const yDist = mousePosition.y - scenePosition.y;
+
+  if (Math.abs(xDist + yDist) >= 2) {
+    hook({
+      x: scenePosition.x + xDist * MOUSE_EASE,
+      y: scenePosition.y + yDist * MOUSE_EASE
+    });
+  }
+};
+
 const asPercentage = ({ x, y }) => ({
   x: x / getWindow().innerWidth,
   y: y / getWindow().innerHeight
@@ -155,26 +165,38 @@ const asPercentage = ({ x, y }) => ({
 
 export default () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [scenePosition, setTargetPosition] = useState({ x: 0, y: 0 });
 
-  return (
-    <main onMouseMove={mouseMove(setMousePosition)}>
-      <style jsx>
-        {`
-          main {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: black;
-            position: relative;
-            overflow: hidden;
-            perspective: 50vw;
-          }
-        `}
-      </style>
-
-      <Crates crates={data} mousePosition={asPercentage(mousePosition)} />
-    </main>
+  useEffect(
+    easeMousePositions({
+      hook: setTargetPosition,
+      mousePosition,
+      scenePosition
+    })
   );
+
+  if (mousePosition)
+    return (
+      <main onMouseMove={mouseMove(setMousePosition, mousePosition)}>
+        <style jsx>
+          {`
+            main {
+              width: 100vw;
+              height: 100vh;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: black;
+              position: relative;
+              overflow: hidden;
+              perspective: 50vw;
+            }
+          `}
+        </style>
+
+        <Crates crates={data} mousePosition={asPercentage(scenePosition)} />
+      </main>
+    );
+
+  return <p>...</p>;
 };
