@@ -12,7 +12,7 @@ const transformDataToCrates = pipe(
   over(itemLens, map(setBackground)),
   over(itemLens, take(10))
 );
-const data = repeat(transformDataToCrates(mockData), 4);
+const data = repeat(transformDataToCrates(mockData), 5);
 
 const MOUSE_EASE = 0.05;
 const easeMousePositions = ({ hook, mousePosition, scenePosition }) => () => {
