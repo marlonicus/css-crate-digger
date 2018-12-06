@@ -34,7 +34,7 @@ const Crate = ({ items }) => {
       <style jsx>
         {`
           article {
-            background: ${Bodies.Crate.color};
+            background: ${Bodies.Crate.color1};
             display: flex;
             flex-direction: column;
             height: ${unit(Bodies.Crate.height)};
@@ -44,12 +44,13 @@ const Crate = ({ items }) => {
             transform-origin: 50% 100%;
             transform: rotateX(-90deg);
             width: ${unit(Bodies.Crate.width)};
-            border-top: 1px solid ${Bodies.Crate.color}; /* Fixes a pixel graphical glitch */
+            border-top: 1px solid ${Bodies.Crate.color1}; /* Fixes a pixel graphical glitch */
+            margin-bottom: 3vw;
           }
 
           article:before,
           article:after {
-            background: ${Bodies.Crate.color};
+            background: ${Bodies.Crate.color1};
             content: "";
             display: block;
             filter: brightness(0.8);
@@ -80,7 +81,7 @@ const Crate = ({ items }) => {
           }
 
           ul:before {
-            border: ${unit(Bodies.Crate.thickness)} solid #667943;
+            border: ${unit(Bodies.Crate.thickness)} solid ${Bodies.Crate.color2};
             content: "";
             display: block;
             transform: rotateX(90deg);

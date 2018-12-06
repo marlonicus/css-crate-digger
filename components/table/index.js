@@ -13,11 +13,11 @@ const Table = ({ children, mousePosition }) => (
           display: flex;
           justify-content: space-around;
           align-items: flex-end;
-          padding-bottom: 1vw;
           width: ${unit(Bodies.Table.width)};
           height: ${unit(Bodies.Table.depth)};
           background: ${Bodies.Table.color};
           position: relative;
+          margin-bottom: 5vw;
           transform-style: preserve-3d;
           transform: translateX(
               ${unit(
@@ -33,6 +33,30 @@ const Table = ({ children, mousePosition }) => (
               ${mousePosition.x * TABLE_MOUSE_ROTATE_AMOUNT -
                 TABLE_MOUSE_ROTATE_AMOUNT / 2}deg
             );
+        }
+
+        /* Back wall */
+        section:before {
+          display: block;
+          content: "";
+          background: ${Bodies.Wall.color1};
+          width: 90vw;
+          height: 100vw;
+          position: absolute;
+          transform: rotateX(90deg) translateZ(-25vw);
+        }
+
+        /* Table front */
+        section:after {
+          display: block;
+          content: "";
+          background: ${Bodies.Table.color2};
+          width: ${unit(Bodies.Table.width)};
+          height: ${unit(Bodies.Table.thickness)};
+          position: absolute;
+          bottom: 0;
+          transform-origin: 50% 100%;
+          transform: rotateX(90deg);
         }
       `}
     </style>

@@ -4,7 +4,7 @@ import { map, take, pipe, assoc, lensProp, over, repeat } from "ramda";
 import mockData from "../data/mock";
 import Table from "../components/table";
 import Crates from "../components/crates";
-import { getWindow } from "../utils";
+import { getWindow, Bodies } from "../utils";
 
 const setBackground = item => assoc("background", randomColor())(item);
 const itemLens = lensProp("items");
@@ -54,7 +54,7 @@ const MousePosition = ({ children }) => {
             display: flex;
             justify-content: center;
             align-items: center;
-            background: black;
+            background: ${Bodies.Wall.color2};
             position: relative;
             overflow: hidden;
             perspective: 50vw;
