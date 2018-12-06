@@ -10,21 +10,31 @@ const transformDataToCrates = pipe(over(itemLens, map(setBackground)));
 
 const data = repeat(transformDataToCrates(mockData), 5);
 
-const CRATE_RECT = {
-  width: 200,
-  height: 100,
-  depth: 150
+const Bodies = {
+  Crate: {
+    width: 10,
+    height: 5,
+    depth: 7.5
+  },
+
+  Record: {
+    width: 9,
+    height: 9
+  },
+
+  unit: "vw"
 };
+
+const unit = val => `${val}${Bodies.unit}`;
 
 const getWindow = () => (typeof window === "undefined" ? {} : window);
 
-const RECORD_SIZE = 180;
-
+const RECORD_Z_PADDING = 0.3;
 const Record = (record, index) => {
   const transform = `translate3d(
-    ${(CRATE_RECT.width - RECORD_SIZE) / 2}px,
-    ${-RECORD_SIZE / 2}px,
-    -${(index * 4 + 1) * 2}px
+    ${unit((Bodies.Crate.width - Bodies.Record.width) / 2)},
+    ${unit(-(Bodies.Record.width / 2))},
+    ${unit(-(index * RECORD_Z_PADDING + 1))}
   )`;
 
   return (
@@ -32,8 +42,8 @@ const Record = (record, index) => {
       <style jsx>
         {`
           li {
-            width: ${RECORD_SIZE}px;
-            height: ${RECORD_SIZE}px;
+            width: ${unit(Bodies.Record.width)};
+            height: ${unit(Bodies.Record.height)};
             position: absolute;
             transition: transform 400ms;
             top: 0px;
@@ -54,18 +64,18 @@ const Record = (record, index) => {
     </li>
   );
 };
-
 const Crate = ({ items }) => (
   <ul>
     <style jsx>
       {`
         ul {
-          width: ${CRATE_RECT.width}px;
-          height: ${CRATE_RECT.height}px;
+          width: ${unit(Bodies.Crate.width)};
+          height: ${unit(Bodies.Crate.height)};
           position: relative;
           transform-style: preserve-3d;
           background: darkgrey;
-          transform: translateZ(${CRATE_RECT.height / 2}px) rotateX(-90deg);
+          transform: translateZ(${unit(Bodies.Crate.height / 2)})
+            rotateX(-90deg);
         }
 
         ul:nth-child(3) {
@@ -84,8 +94,8 @@ const Crate = ({ items }) => (
         ul:after {
           display: block;
           content: "";
-          width: ${CRATE_RECT.depth}px;
-          height: ${CRATE_RECT.height}px;
+          width: ${unit(Bodies.Crate.depth)};
+          height: ${unit(Bodies.Crate.height)};
           background: grey;
           transform-origin: 0% 50%;
         }
@@ -95,8 +105,8 @@ const Crate = ({ items }) => (
         }
 
         ul:after {
-          transform: translateX(${CRATE_RECT.width}px)
-            translateY(-${CRATE_RECT.height}px) rotateY(90deg);
+          transform: translateX(${unit(Bodies.Crate.width)})
+            translateY(${unit(-Bodies.Crate.height)}) rotateY(90deg);
         }
       `}
     </style>
@@ -104,6 +114,9 @@ const Crate = ({ items }) => (
   </ul>
 );
 
+const TABLE_MOUSE_MOVE_AMOUNT = 50;
+const TABLE_MOUSE_ROTATE_AMOUNT = 5;
+const TABLE_INITIAL_X_ROTATION = 55;
 const Table = ({ children, mousePosition }) => (
   <section>
     <style jsx>
@@ -114,12 +127,23 @@ const Table = ({ children, mousePosition }) => (
           align-items: flex-end;
           width: 70vw;
           height: 50vw;
-          background: red;
+          background: sienna;
           position: relative;
           transform-style: preserve-3d;
-          transform: translateX(${-mousePosition.x * 500 + 250}px)
-            rotateX(${55 + mousePosition.y * 5}deg)
-            rotateZ(${mousePosition.x * 5 - 2.5}deg);
+          transform: translateX(
+              ${unit(
+                -mousePosition.x * TABLE_MOUSE_MOVE_AMOUNT +
+                  TABLE_MOUSE_MOVE_AMOUNT / 2
+              )}
+            )
+            rotateX(
+              ${TABLE_INITIAL_X_ROTATION +
+                mousePosition.y * TABLE_MOUSE_ROTATE_AMOUNT}deg
+            )
+            rotateZ(
+              ${mousePosition.x * TABLE_MOUSE_ROTATE_AMOUNT -
+                TABLE_MOUSE_ROTATE_AMOUNT / 2}deg
+            );
         }
       `}
     </style>
