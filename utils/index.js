@@ -8,8 +8,8 @@ export const Bodies = {
   Crate: {
     color: "darkolivegreen",
     width: 10,
-    height: 5,
-    depth: 7.5,
+    height: 6,
+    depth: 10.5,
     thickness: 0.5
   },
 
@@ -19,8 +19,8 @@ export const Bodies = {
   },
 
   Record: {
-    width: 9,
-    height: 9
+    width: 8.7,
+    height: 8.7
   },
 
   unit: "vw"

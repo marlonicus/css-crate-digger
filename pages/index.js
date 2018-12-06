@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import randomColor from "randomcolor";
-import { map, pipe, assoc, lensProp, over, repeat } from "ramda";
+import { map, take, pipe, assoc, lensProp, over, repeat } from "ramda";
 import mockData from "../data/mock";
 import Table from "../components/table";
 import Crates from "../components/crates";
@@ -8,7 +8,10 @@ import { getWindow } from "../utils";
 
 const setBackground = item => assoc("background", randomColor())(item);
 const itemLens = lensProp("items");
-const transformDataToCrates = pipe(over(itemLens, map(setBackground)));
+const transformDataToCrates = pipe(
+  over(itemLens, map(setBackground)),
+  over(itemLens, take(10))
+);
 const data = repeat(transformDataToCrates(mockData), 4);
 
 const MOUSE_EASE = 0.05;

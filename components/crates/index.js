@@ -68,15 +68,26 @@ const Crate = ({ items }) => (
 
         ul {
           background: ${Bodies.Crate.color};
-          display: block;
+          display: flex;
           position: absolute;
           top: 0;
           width: ${unit(Bodies.Crate.width)};
           height: ${unit(Bodies.Crate.height)};
-          filter: brightness(0.9);
           transform-style: preserve-3d;
           transform: translateZ(${unit(-Bodies.Crate.depth)});
           transform-origin: 50% 0%;
+        }
+
+        ul:before {
+          border: ${unit(Bodies.Crate.thickness)} solid ${Bodies.Crate.color};
+          content: "";
+          display: block;
+          transform: rotateX(90deg);
+          transform-origin: 50% 0%;
+          position: absolute;
+          top: 0;
+          width: ${unit(Bodies.Crate.width)};
+          height: ${unit(Bodies.Crate.depth)};
         }
       `}
     </style>
