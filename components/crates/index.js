@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addIndex, map } from "ramda";
+import { addIndex, map, partial } from "ramda";
 import Record from "../record";
 import { unit, Bodies } from "../../utils";
 
@@ -11,7 +11,7 @@ const Label = ({ text }) => (
           background: white;
           color: #333;
           display: inline-block;
-          font-family: 'Boogaloo', cursive;
+          font-family: Boogaloo, cursive;
           font-size: ${unit(Bodies.Label.fontSize)};
           left: 50%;
           padding: ${unit(Bodies.Label.padding)};
@@ -26,7 +26,7 @@ const Label = ({ text }) => (
   </h2>
 );
 
-const Crate = ({ items }) => {
+const Crate = ({ items, selectedRecord, setSelectedRecord }) => {
   const [focussedIndex, setFocus] = useState(10);
 
   return (
@@ -100,7 +100,10 @@ const Crate = ({ items }) => {
             <Record
               {...data}
               index={index}
+              key={index}
               isScrolledThrough={index > focussedIndex}
+              isSelected={selectedRecord === index}
+              onSelect={setSelectedRecord}
               onFocus={setFocus}
             />
           ),
@@ -111,11 +114,20 @@ const Crate = ({ items }) => {
   );
 };
 
-const Crates = ({ crates }) => (
+const Crates = ({ crates, selectedRecord, setSelectedRecord }) => (
   <>
     {addIndex(map)(
       (crate, index) => (
-        <Crate {...crate} index={index} />
+        <Crate
+          selectedRecord={
+            selectedRecord.crateIndex === index
+              ? selectedRecord.recordIndex
+              : false
+          }
+          setSelectedRecord={partial(setSelectedRecord, [index])}
+          {...crate}
+          key={index}
+        />
       ),
       crates
     )}

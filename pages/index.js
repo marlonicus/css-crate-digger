@@ -66,10 +66,17 @@ const MousePosition = ({ children }) => {
   );
 };
 
+const onSetSelectedRecord = hook => (crateIndex, recordIndex) =>
+  hook({ crateIndex, recordIndex });
+
 const App = () => {
   const mousePosition = useContext(MousePositionContext) || { x: 0, y: 0 };
 
   const [scenePosition, setTargetPosition] = useState({ x: 0, y: 0 });
+  const [selectedRecord, setSelectedRecord] = useState({
+    crateIndex: false,
+    recordIndex: false
+  });
 
   useEffect(
     easeMousePositions({
@@ -81,7 +88,11 @@ const App = () => {
 
   return (
     <Table mousePosition={asPercentage(scenePosition)}>
-      <Crates crates={data} />
+      <Crates
+        crates={data}
+        selectedRecord={selectedRecord}
+        setSelectedRecord={onSetSelectedRecord(setSelectedRecord)}
+      />
     </Table>
   );
 };
