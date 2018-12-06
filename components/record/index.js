@@ -8,7 +8,6 @@ const Record = ({ onFocus, onSelect, index, isScrolledThrough, ...record }) => (
     <style jsx>
       {`
         li {
-          cursor: pointer;
           transform-style: preserve-3d;
           transform-origin: 50% 100%;
           width: ${unit(Bodies.Record.width)};
@@ -25,6 +24,7 @@ const Record = ({ onFocus, onSelect, index, isScrolledThrough, ...record }) => (
         }
 
         button {
+          cursor: pointer;
           border: 0.05vw solid #777;
           width: 100%;
           height: 100%;
@@ -34,6 +34,7 @@ const Record = ({ onFocus, onSelect, index, isScrolledThrough, ...record }) => (
         }
 
         button:focus,
+        button:hover,
         button:active {
           outline: 0.1vw solid white;
         }
