@@ -14,7 +14,8 @@ const Crate = ({ items }) => (
           transform-style: preserve-3d;
           background: darkgrey;
           transform: translateZ(${unit(Bodies.Crate.height / 2)})
-            rotateX(-90deg);
+            rotateX(-90deg) rotateY(180deg)
+            translateZ(${unit(Bodies.Crate.depth * 0.8)});
         }
 
         ul:nth-child(3) {
