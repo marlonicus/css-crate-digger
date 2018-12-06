@@ -2,7 +2,7 @@ import React from "react";
 import { unit, Bodies } from "../../utils";
 
 const TABLE_MOUSE_MOVE_AMOUNT = 50;
-const TABLE_MOUSE_ROTATE_AMOUNT = 5;
+const TABLE_MOUSE_ROTATE_AMOUNT = 10;
 const TABLE_INITIAL_X_ROTATION = 55;
 
 const Table = ({ children, mousePosition }) => (

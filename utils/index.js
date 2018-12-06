@@ -10,7 +10,7 @@ export const Bodies = {
     width: 10,
     height: 6,
     depth: 10.5,
-    thickness: 0.5
+    thickness: 0.6
   },
 
   Label: {
