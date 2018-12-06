@@ -1,24 +1,24 @@
 export const Bodies = {
   Wall: {
-    color1: "#d599fc",
-    color2: "#c066fb"
+    color2: "#333",
+    color1: "#444"
   },
 
   Table: {
     width: 70,
     depth: 50,
     thickness: 2,
-    color: "#ffac2d",
-    color2: "#ffb647"
+    color2: "#3E6358",
+    color1: "#466f63"
   },
 
   Crate: {
-    color1: "#00c778",
-    color2: "#00ae69",
+    color1: "#333",
+    color2: "#555",
     width: 10,
     height: 6,
     depth: 10.5,
-    thickness: 0.6
+    thickness: 0.5
   },
 
   Label: {

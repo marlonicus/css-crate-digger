@@ -15,7 +15,7 @@ const Table = ({ children, mousePosition }) => (
           align-items: flex-end;
           width: ${unit(Bodies.Table.width)};
           height: ${unit(Bodies.Table.depth)};
-          background: ${Bodies.Table.color};
+          background: ${Bodies.Table.color2};
           position: relative;
           margin-bottom: 5vw;
           transform-style: preserve-3d;
@@ -50,7 +50,7 @@ const Table = ({ children, mousePosition }) => (
         section:after {
           display: block;
           content: "";
-          background: ${Bodies.Table.color2};
+          background: ${Bodies.Table.color1};
           width: ${unit(Bodies.Table.width)};
           height: ${unit(Bodies.Table.thickness)};
           position: absolute;
