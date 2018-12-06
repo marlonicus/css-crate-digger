@@ -13,6 +13,10 @@ export default class MyDocument extends Document {
       <html lang="en">
         <Head>
           <ResetCSS />
+          <link
+            href="https://fonts.googleapis.com/css?family=Boogaloo"
+            rel="stylesheet"
+          />
           <title>CSS Crate Digger - Marlonic.us</title>
         </Head>
         <body>

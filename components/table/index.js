@@ -13,9 +13,10 @@ const Table = ({ children, mousePosition }) => (
           display: flex;
           justify-content: space-around;
           align-items: flex-end;
+          padding-bottom: 1vw;
           width: ${unit(Bodies.Table.width)};
           height: ${unit(Bodies.Table.depth)};
-          background: sienna;
+          background: ${Bodies.Table.color};
           position: relative;
           transform-style: preserve-3d;
           transform: translateX(

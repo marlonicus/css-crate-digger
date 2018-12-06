@@ -3,55 +3,86 @@ import { addIndex, map } from "ramda";
 import Record from "../record";
 import { unit, Bodies } from "../../utils";
 
-const Crate = ({ items }) => (
-  <ul>
-    <style jsx>
+const Label = ({ text }) => (
+  <h2>
+    <style>
       {`
-        ul {
-          width: ${unit(Bodies.Crate.width)};
-          height: ${unit(Bodies.Crate.height)};
-          position: relative;
-          transform-style: preserve-3d;
-          background: darkgrey;
-          transform: translateZ(${unit(Bodies.Crate.height / 2)})
-            rotateX(-90deg) rotateY(180deg)
-            translateZ(${unit(Bodies.Crate.depth * 0.8)});
-        }
-
-        ul:nth-child(3) {
-          z-index: 3;
-        }
-
-        ul:nth-child(4) {
-          z-index: 2;
-        }
-
-        ul:nth-child(5) {
-          z-index: 1;
-        }
-
-        ul:before,
-        ul:after {
-          display: block;
-          content: "";
-          width: ${unit(Bodies.Crate.depth)};
-          height: ${unit(Bodies.Crate.height)};
-          background: grey;
-          transform-origin: 0% 50%;
-        }
-
-        ul:before {
-          transform: rotateY(90deg);
-        }
-
-        ul:after {
-          transform: translateX(${unit(Bodies.Crate.width)})
-            translateY(${unit(-Bodies.Crate.height)}) rotateY(90deg);
+        h2 {
+          background: white;
+          color: #333;
+          display: inline-block;
+          font-family: 'Boogaloo', cursive;
+          font-size: ${unit(Bodies.Label.fontSize)};
+          left: 50%;
+          padding: ${unit(Bodies.Label.padding)};
+          position: absolute;
+          text-align: center;
+          text-transform: uppercase;
+          transform: translateX(-50%);
         }
       `}
     </style>
-    {addIndex(map)(Record, items)}
-  </ul>
+    {text}
+  </h2>
+);
+
+const Crate = ({ items }) => (
+  <article>
+    <style jsx>
+      {`
+        * > :global(h2) {
+        }
+
+        article {
+          background: ${Bodies.Crate.color};
+          display: flex;
+          flex-direction: column;
+          height: ${unit(Bodies.Crate.height)};
+          justify-content: center;
+          position: relative;
+          transform-style: preserve-3d;
+          transform-origin: 50% 100%;
+          transform: rotateX(-90deg);
+          width: ${unit(Bodies.Crate.width)};
+        }
+
+        article:before,
+        article:after {
+          background: ${Bodies.Crate.color};
+          content: "";
+          display: block;
+          filter: brightness(0.8);
+          height: ${unit(Bodies.Crate.height)};
+          left: ${unit(-Bodies.Crate.depth)};
+          position: absolute;
+          transform-origin: 100% 50%;
+          transform: rotateY(-90deg);
+          width: ${unit(Bodies.Crate.depth)};
+        }
+
+        article:after {
+          transform-origin: 0% 50%;
+          left: ${unit(Bodies.Crate.width)};
+          transform: rotateY(90deg);
+        }
+
+        ul {
+          background: ${Bodies.Crate.color};
+          display: block;
+          position: absolute;
+          top: 0;
+          width: ${unit(Bodies.Crate.width)};
+          height: ${unit(Bodies.Crate.height)};
+          filter: brightness(0.9);
+          transform-style: preserve-3d;
+          transform: translateZ(${unit(-Bodies.Crate.depth)});
+          transform-origin: 50% 0%;
+        }
+      `}
+    </style>
+    <Label text="Hip-Hop" />
+    <ul>{addIndex(map)(Record, items)}</ul>
+  </article>
 );
 
 const Crates = ({ crates }) => (

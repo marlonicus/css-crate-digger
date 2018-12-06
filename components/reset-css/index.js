@@ -144,6 +144,10 @@ export default () => (
     border-spacing: 0;
   }
 
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
   /* Document level adjustments */
   html {
     font-size: 17px;
