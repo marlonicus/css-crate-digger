@@ -34,6 +34,10 @@ export const Bodies = {
     height: 8.7
   },
 
+  Disc: {
+    diameter: 8.5
+  },
+
   unit: "vw"
 };
 

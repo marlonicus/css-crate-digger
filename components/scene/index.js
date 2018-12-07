@@ -1,11 +1,11 @@
 import React from "react";
 import { unit, Bodies } from "../../utils";
 
-const TABLE_MOUSE_MOVE_AMOUNT = 50;
-const TABLE_MOUSE_ROTATE_AMOUNT = 10;
-const TABLE_INITIAL_X_ROTATION = 50;
+const SCENE_MOUSE_MOVE_AMOUNT = 50;
+const SCENE_MOUSE_ROTATE_AMOUNT = 10;
+const SCENE_INITIAL_X_ROTATION = 50;
 
-const Table = ({ children, cameraPosition }) => (
+const Scene = ({ children, cameraPosition }) => (
   <section>
     <style jsx>
       {`
@@ -21,17 +21,17 @@ const Table = ({ children, cameraPosition }) => (
           transform-style: preserve-3d;
           transform: translateX(
               ${unit(
-                -cameraPosition.x * TABLE_MOUSE_MOVE_AMOUNT +
-                  TABLE_MOUSE_MOVE_AMOUNT / 2
+                -cameraPosition.x * SCENE_MOUSE_MOVE_AMOUNT +
+                  SCENE_MOUSE_MOVE_AMOUNT / 2
               )}
             )
             rotateX(
-              ${TABLE_INITIAL_X_ROTATION +
-                cameraPosition.y * TABLE_MOUSE_ROTATE_AMOUNT}deg
+              ${SCENE_INITIAL_X_ROTATION +
+                cameraPosition.y * SCENE_MOUSE_ROTATE_AMOUNT}deg
             )
             rotateZ(
-              ${cameraPosition.x * TABLE_MOUSE_ROTATE_AMOUNT -
-                TABLE_MOUSE_ROTATE_AMOUNT / 2}deg
+              ${cameraPosition.x * SCENE_MOUSE_ROTATE_AMOUNT -
+                SCENE_MOUSE_ROTATE_AMOUNT / 2}deg
             );
         }
 
@@ -64,4 +64,4 @@ const Table = ({ children, cameraPosition }) => (
   </section>
 );
 
-export default Table;
+export default Scene;

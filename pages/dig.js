@@ -1,55 +1,51 @@
-import React, { useState, useEffect, useContext } from "react";
-import randomColor from "randomcolor";
-import { map, take, pipe, assoc, lensProp, over, repeat } from "ramda";
-import mockData from "../data/mock";
-import Table from "../components/table";
+import React, { useState, useContext } from "react";
+import Loading from "../components/loading";
+import Scene from "../components/scene";
 import Crates from "../components/crates";
+import { Content, ContentContext } from "../components/content";
 import { MousePosition } from "../components/mouse";
 import { Camera, CameraContext } from "../components/camera";
 import { getWindow } from "../utils";
 
-const setBackground = item => assoc("background", randomColor())(item);
-const itemLens = lensProp("items");
-const transformDataToCrates = pipe(
-  over(itemLens, map(setBackground)),
-  over(itemLens, take(10))
-);
-const data = repeat(transformDataToCrates(mockData), 5);
-
 const onSetSelectedRecord = hook => (crateIndex, recordIndex) =>
   hook({ crateIndex, recordIndex });
 
-const asPercentage = ({ x, y }) => ({
+const asPercentageOfWindow = ({ x, y }) => ({
   x: x / getWindow().innerWidth,
   y: y / getWindow().innerHeight
 });
 
 const App = () => {
-  const cameraPosition = useContext(CameraContext) || { x: 0.5, y: 0.5 };
+  const cameraPosition = useContext(CameraContext);
+  const content = useContext(ContentContext);
 
   const [selectedRecord, setSelectedRecord] = useState({
     crateIndex: false,
     recordIndex: false
   });
 
-  return (
-    <Table
+  return content.loaded ? (
+    <Scene
       selectedRecord={selectedRecord}
-      cameraPosition={asPercentage(cameraPosition)}
+      cameraPosition={asPercentageOfWindow(cameraPosition)}
     >
       <Crates
-        crates={data}
+        crates={content.data}
         selectedRecord={selectedRecord}
         setSelectedRecord={onSetSelectedRecord(setSelectedRecord)}
       />
-    </Table>
+    </Scene>
+  ) : (
+    <Loading />
   );
 };
 
 export default () => (
   <MousePosition>
     <Camera>
-      <App />
+      <Content>
+        <App />
+      </Content>
     </Camera>
   </MousePosition>
 );

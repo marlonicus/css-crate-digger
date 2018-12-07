@@ -11,7 +11,6 @@ const Label = ({ text }) => (
           background: white;
           color: #333;
           display: inline-block;
-          font-family: Boogaloo, cursive;
           font-size: ${unit(Bodies.Label.fontSize)};
           left: 50%;
           padding: ${unit(Bodies.Label.padding)};

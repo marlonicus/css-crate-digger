@@ -12,6 +12,7 @@ export default () => (
     margin: 0;
     padding: 0;
     color: #333;
+    font-family: Boogaloo, cursive;
   }
 
   /* http://meyerweb.com/eric/tools/css/reset/
