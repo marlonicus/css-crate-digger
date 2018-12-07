@@ -69,7 +69,7 @@ const Crate = ({ items, selectedRecord, setSelectedRecord }) => {
           }
 
           ul {
-            background: #33401c;
+            background: ${Bodies.Crate.color1};
             display: flex;
             position: absolute;
             top: 0;

@@ -3,9 +3,9 @@ import { unit, Bodies } from "../../utils";
 
 const TABLE_MOUSE_MOVE_AMOUNT = 50;
 const TABLE_MOUSE_ROTATE_AMOUNT = 10;
-const TABLE_INITIAL_X_ROTATION = 55;
+const TABLE_INITIAL_X_ROTATION = 50;
 
-const Table = ({ children, mousePosition }) => (
+const Table = ({ children, cameraPosition }) => (
   <section>
     <style jsx>
       {`
@@ -17,20 +17,20 @@ const Table = ({ children, mousePosition }) => (
           height: ${unit(Bodies.Table.depth)};
           background: ${Bodies.Table.color2};
           position: relative;
-          margin-bottom: 5vw;
+          margin-bottom: 2vw;
           transform-style: preserve-3d;
           transform: translateX(
               ${unit(
-                -mousePosition.x * TABLE_MOUSE_MOVE_AMOUNT +
+                -cameraPosition.x * TABLE_MOUSE_MOVE_AMOUNT +
                   TABLE_MOUSE_MOVE_AMOUNT / 2
               )}
             )
             rotateX(
               ${TABLE_INITIAL_X_ROTATION +
-                mousePosition.y * TABLE_MOUSE_ROTATE_AMOUNT}deg
+                cameraPosition.y * TABLE_MOUSE_ROTATE_AMOUNT}deg
             )
             rotateZ(
-              ${mousePosition.x * TABLE_MOUSE_ROTATE_AMOUNT -
+              ${cameraPosition.x * TABLE_MOUSE_ROTATE_AMOUNT -
                 TABLE_MOUSE_ROTATE_AMOUNT / 2}deg
             );
         }
@@ -41,7 +41,7 @@ const Table = ({ children, mousePosition }) => (
           content: "";
           background: ${Bodies.Wall.color1};
           width: 90vw;
-          height: 100vw;
+          height: 90vw;
           position: absolute;
           transform: rotateX(90deg) translateZ(-25vw);
         }
