@@ -80,8 +80,10 @@ const Crate = ({ items, selectedRecord, setSelectedRecord }) => {
             transform-origin: 50% 0%;
           }
 
+          /* Border around the top of the crate to give a thicc illusion */
           ul:before {
             border: ${unit(Bodies.Crate.thickness)} solid ${Bodies.Crate.color2};
+            pointer-events: none;
             content: "";
             display: block;
             transform: rotateX(90deg);
