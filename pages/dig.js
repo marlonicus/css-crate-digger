@@ -4,7 +4,8 @@ import { map, take, pipe, assoc, lensProp, over, repeat } from "ramda";
 import mockData from "../data/mock";
 import Table from "../components/table";
 import Crates from "../components/crates";
-import { MousePositionContext, MousePosition } from "../components/mouse";
+import { MousePosition } from "../components/mouse";
+import { Camera, CameraContext } from "../components/camera";
 import { getWindow } from "../utils";
 
 const setBackground = item => assoc("background", randomColor())(item);
@@ -15,43 +16,21 @@ const transformDataToCrates = pipe(
 );
 const data = repeat(transformDataToCrates(mockData), 5);
 
-const MOUSE_EASE = 0.1;
-const easeMousePositions = ({ hook, mousePosition, cameraPosition }) => () => {
-  const xDist = mousePosition.x - cameraPosition.x;
-  const yDist = mousePosition.y - cameraPosition.y;
-
-  if (Math.abs(xDist + yDist) >= 2) {
-    hook({
-      x: cameraPosition.x + xDist * MOUSE_EASE,
-      y: cameraPosition.y + yDist * MOUSE_EASE
-    });
-  }
-};
+const onSetSelectedRecord = hook => (crateIndex, recordIndex) =>
+  hook({ crateIndex, recordIndex });
 
 const asPercentage = ({ x, y }) => ({
   x: x / getWindow().innerWidth,
   y: y / getWindow().innerHeight
 });
 
-const onSetSelectedRecord = hook => (crateIndex, recordIndex) =>
-  hook({ crateIndex, recordIndex });
-
 const App = () => {
-  const mousePosition = useContext(MousePositionContext) || { x: 0.5, y: 0 };
-  const [cameraPosition, setCameraPosition] = useState({ x: 0, y: 0 });
+  const cameraPosition = useContext(CameraContext) || { x: 0.5, y: 0.5 };
 
   const [selectedRecord, setSelectedRecord] = useState({
     crateIndex: false,
     recordIndex: false
   });
-
-  useEffect(
-    easeMousePositions({
-      hook: setCameraPosition,
-      mousePosition,
-      cameraPosition
-    })
-  );
 
   return (
     <Table
@@ -69,6 +48,8 @@ const App = () => {
 
 export default () => (
   <MousePosition>
-    <App />
+    <Camera>
+      <App />
+    </Camera>
   </MousePosition>
 );
