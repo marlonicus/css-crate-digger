@@ -154,19 +154,22 @@ const createBasicGenreCrates = async ({ genres }) => {
 
 const waitForSpotifyWebPlaybackSDKToLoad = async () =>
   new Promise(resolve => {
-    if (window.Spotify) {
-      resolve(window.Spotify);
-    } else {
-      window.onSpotifyWebPlaybackSDKReady = () => {
+    try {
+      if (window.Spotify) {
         resolve(window.Spotify);
-      };
-    }
+      } else {
+        window.onSpotifyWebPlaybackSDKReady = () => {
+          resolve(window.Spotify);
+        };
+      }
+    } catch (e) {}
   });
 
 export default {
   login,
 
   setAccessToken: token => {
+    console.log("TOKENNN", token);
     accessToken = token;
   },
 
@@ -185,7 +188,7 @@ export default {
     new Promise(async (resolve, reject) => {
       await waitForSpotifyWebPlaybackSDKToLoad();
 
-      if (!player) {
+      if (!player && accessToken) {
         player = createPlayer({
           accessToken,
           onReady: resolve,

@@ -5,12 +5,12 @@ import { checkUserIsLoggedIn } from "../../utils";
 typeof window !== "undefined" && spotify.connect();
 
 const loadContent = async ({ setContent, accessToken }) => {
-  await spotify.connect();
   spotify.setAccessToken(accessToken);
+  await spotify.connect();
   const data = await spotify.getCrates();
 
   setContent({
-    loaded: false,
+    loaded: true,
     data
   });
 };

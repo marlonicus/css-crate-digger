@@ -50,7 +50,7 @@ export default () => (
         </Content>
       </Camera>
     </MousePosition>
-    <script src="https://sdk.scdn.co/spotify-player.js" />
     <Footer />
+    <script src="https://sdk.scdn.co/spotify-player.js" />
   </>
 );
