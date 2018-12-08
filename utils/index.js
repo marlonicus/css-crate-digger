@@ -3,8 +3,8 @@ import { propOr, pathOr, pipe, addIndex, map, curry } from "ramda";
 
 export const Bodies = {
   Wall: {
-    color2: "#333",
-    color1: "#444"
+    color1: "#030303",
+    color2: "#090909"
   },
 
   Table: {
