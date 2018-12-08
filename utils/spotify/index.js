@@ -6,6 +6,7 @@ import createPlayer from "./create-player";
 import { takeRandX, mapIndexed } from "../index";
 
 const CUSTOM_PLAYLIST_NAME = "Crate Digger  💎";
+const CUSTOM_PLAYLIST_DESCRIPTION = "Gems found with crate-digger-2.netlify.com";
 
 let player;
 let market = "";
@@ -75,7 +76,7 @@ const createPlaylist = async () => {
       }),
       body: JSON.stringify({
         name: CUSTOM_PLAYLIST_NAME,
-        description: "Gems found with crate-digger.netlify.com"
+        description: CUSTOM_PLAYLIST_DESCRIPTION
       })
     }
   );
@@ -227,9 +228,7 @@ export default {
   },
 
   getCrates: async () => {
-    console.log("getting me");
     const { country, id } = await getMe();
-    console.log("got me", country);
     market = country;
     userId = id;
 
@@ -237,7 +236,7 @@ export default {
     const crates = await createBasicGenreCrates({ genres });
     const cratesWithAnalyses = await addTrackAnalysesToCrates({ crates });
 
-    console.log(cratesWithAnalyses);
+    // console.log(cratesWithAnalyses);
 
     return cratesWithAnalyses;
   }

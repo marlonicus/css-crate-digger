@@ -25,7 +25,13 @@ const Label = ({ text }) => (
   </h2>
 );
 
-const Crate = ({ items, genre, selectedRecord, setSelectedRecord }) => {
+const Crate = ({
+  items,
+  genre,
+  selectedRecord,
+  setSelectedRecord,
+  saveSong
+}) => {
   const [focussedIndex, setFocus] = useState(10);
   return (
     <article>
@@ -104,6 +110,7 @@ const Crate = ({ items, genre, selectedRecord, setSelectedRecord }) => {
               isScrolledThrough={index > focussedIndex}
               isSelected={selectedRecord === index}
               onSelect={setSelectedRecord}
+              onSave={saveSong}
               onFocus={setFocus}
             />
           ),
@@ -114,7 +121,7 @@ const Crate = ({ items, genre, selectedRecord, setSelectedRecord }) => {
   );
 };
 
-const Crates = ({ crates, selectedRecord, setSelectedRecord }) => (
+const Crates = ({ crates, selectedRecord, setSelectedRecord, saveSong }) => (
   <>
     {addIndex(map)(
       (crate, index) => (
@@ -124,6 +131,7 @@ const Crates = ({ crates, selectedRecord, setSelectedRecord }) => (
               ? selectedRecord.recordIndex
               : false
           }
+          saveSong={partial(saveSong, [index])}
           setSelectedRecord={partial(setSelectedRecord, [index])}
           {...crate}
           genre={crate.genre}

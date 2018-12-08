@@ -9,10 +9,13 @@ import { Camera, CameraContext } from "../components/camera";
 import { getWindow } from "../utils";
 import spotify from "../utils/spotify";
 
+const getRecord = ({ crateIndex, recordIndex, content }) =>
+  content.data[crateIndex].content.tracks[recordIndex];
+
 const onSetSelectedRecord = (hook, content) => (crateIndex, recordIndex) => {
   if (recordIndex !== false) {
     hook({ crateIndex, recordIndex });
-    const { uri } = content.data[crateIndex].content.tracks[recordIndex];
+    const { uri } = getRecord({ crateIndex, recordIndex, content });
     spotify.play({ uri });
   } else {
     hook({ crateIndex: false, recordIndex: false });
@@ -43,6 +46,10 @@ const App = () => {
         crates={content.data}
         selectedRecord={selectedRecord}
         setSelectedRecord={onSetSelectedRecord(setSelectedRecord, content)}
+        saveSong={(crateIndex, recordIndex) => {
+          const { uri } = getRecord({ crateIndex, recordIndex, content });
+          spotify.saveToPlaylist({ uri });
+        }}
       />
     </Scene>
   ) : (
