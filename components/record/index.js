@@ -68,7 +68,7 @@ const Record = ({
             top: -0.3vw;
             transform: translateY(-100%);
             transition: transform 50ms ease-out;
-            border-radius: 1vw;
+            border-radius: 0.7vw;
             font-size: 0.7vw;
           }
 

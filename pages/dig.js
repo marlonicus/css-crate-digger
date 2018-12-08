@@ -7,9 +7,18 @@ import { Content, ContentContext } from "../components/content";
 import { MousePosition } from "../components/mouse";
 import { Camera, CameraContext } from "../components/camera";
 import { getWindow } from "../utils";
+import spotify from "../utils/spotify";
 
-const onSetSelectedRecord = hook => (crateIndex, recordIndex) =>
-  hook({ crateIndex, recordIndex });
+const onSetSelectedRecord = (hook, content) => (crateIndex, recordIndex) => {
+  if (recordIndex !== false) {
+    hook({ crateIndex, recordIndex });
+    const { uri } = content.data[crateIndex].content.tracks[recordIndex];
+    spotify.play({ uri });
+  } else {
+    hook({ crateIndex: false, recordIndex: false });
+    spotify.pause();
+  }
+};
 
 const asPercentageOfWindow = ({ x, y }) => ({
   x: x / getWindow().innerWidth,
@@ -33,7 +42,7 @@ const App = () => {
       <Crates
         crates={content.data}
         selectedRecord={selectedRecord}
-        setSelectedRecord={onSetSelectedRecord(setSelectedRecord)}
+        setSelectedRecord={onSetSelectedRecord(setSelectedRecord, content)}
       />
     </Scene>
   ) : (
