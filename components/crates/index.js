@@ -25,9 +25,8 @@ const Label = ({ text }) => (
   </h2>
 );
 
-const Crate = ({ items, selectedRecord, setSelectedRecord }) => {
+const Crate = ({ items, genre, selectedRecord, setSelectedRecord }) => {
   const [focussedIndex, setFocus] = useState(10);
-
   return (
     <article>
       <style jsx>
@@ -94,7 +93,7 @@ const Crate = ({ items, selectedRecord, setSelectedRecord }) => {
           }
         `}
       </style>
-      <Label text="Hip-Hop" />
+      <Label text={genre} />
       <ul>
         {addIndex(map)(
           (data, index) => (
@@ -127,6 +126,8 @@ const Crates = ({ crates, selectedRecord, setSelectedRecord }) => (
           }
           setSelectedRecord={partial(setSelectedRecord, [index])}
           {...crate}
+          genre={crate.genre}
+          items={crate.content.tracks}
           key={index}
         />
       ),

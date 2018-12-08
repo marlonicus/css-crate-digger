@@ -1,6 +1,7 @@
 /* global fetch */
 import queryString from "query-string";
-import { join, omit, map, prop, find, propEq } from "ramda";
+import { join, omit, map, prop, find, propEq, assoc } from "ramda";
+import randomColor from "randomcolor";
 import createPlayer from "./create-player";
 import { takeRandX, mapIndexed } from "../index";
 
@@ -11,6 +12,8 @@ let market = "";
 let userId = "";
 let customPlaylist = false;
 let accessToken = "";
+
+const setBackground = item => assoc("background", randomColor())(item);
 
 const login = () => {
   const loginParams = {
@@ -106,7 +109,7 @@ const findCustomPlaylist = async () => {
 
 const getRandomGenres = async () => {
   const { genres } = await getGenreSeeds();
-  return takeRandX(8)(genres);
+  return takeRandX(5)(genres);
 };
 
 const addTrackAnalysesToCrates = async ({ crates }) => {
@@ -149,6 +152,17 @@ const createBasicGenreCrates = async ({ genres }) => {
   return crates;
 };
 
+const waitForSpotifyWebPlaybackSDKToLoad = async () =>
+  new Promise(resolve => {
+    if (window.Spotify) {
+      resolve(window.Spotify);
+    } else {
+      window.onSpotifyWebPlaybackSDKReady = () => {
+        resolve(window.Spotify);
+      };
+    }
+  });
+
 export default {
   login,
 
@@ -168,9 +182,10 @@ export default {
   },
 
   connect: () =>
-    new Promise((resolve, reject) => {
-      window.onSpotifyWebPlaybackSDKReady = () => {
-        console.log("Creating new player with", accessToken);
+    new Promise(async (resolve, reject) => {
+      await waitForSpotifyWebPlaybackSDKToLoad();
+
+      if (!player) {
         player = createPlayer({
           accessToken,
           onReady: resolve,
@@ -180,7 +195,9 @@ export default {
             reject(message);
           }
         });
-      };
+      } else {
+        resolve();
+      }
     }),
 
   play: async ({ uri }) => {
@@ -207,7 +224,9 @@ export default {
   },
 
   getCrates: async () => {
+    console.log("getting me");
     const { country, id } = await getMe();
+    console.log("got me", country);
     market = country;
     userId = id;
 

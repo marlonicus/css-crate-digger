@@ -41,11 +41,14 @@ const App = () => {
 };
 
 export default () => (
-  <MousePosition>
-    <Camera>
-      <Content>
-        <App />
-      </Content>
-    </Camera>
-  </MousePosition>
+  <>
+    <MousePosition>
+      <Camera>
+        <Content>
+          <App />
+        </Content>
+      </Camera>
+    </MousePosition>
+    <script src="https://sdk.scdn.co/spotify-player.js" />
+  </>
 );

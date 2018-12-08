@@ -44,7 +44,7 @@ const Record = ({
             border: 0.05vw solid #777;
             width: 100%;
             height: 100%;
-            background: url(${record.images[0].url});
+            background: url(${record.album.images[1].url});
             background-size: cover;
             background-position: center center;
           }
