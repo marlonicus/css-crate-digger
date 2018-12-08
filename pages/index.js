@@ -46,6 +46,12 @@ const Login = () => (
             color: grey;
           }
 
+          button:hover .emoji,
+          button:active .emoji,
+          button:focus .emoji {
+            transform: translateX(1vw);
+          }
+
           footer {
             position: absolute;
             bottom: 20px;
@@ -57,6 +63,8 @@ const Login = () => (
           }
 
           .emoji {
+            display: inline-block;
+            transition: transform 200ms ease-out;
             margin-left: 0.5vw;
           }
         `}

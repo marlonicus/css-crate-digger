@@ -6,6 +6,7 @@ const RECORD_Z_PADDING = 0.5;
 const Record = ({
   onFocus,
   onSelect,
+  onSave,
   index,
   isSelected,
   isScrolledThrough,
@@ -42,7 +43,7 @@ const Record = ({
             transform: ${zTransform} translateY(-10vw);
           }
 
-          button {
+          .sleeve {
             cursor: pointer;
             border: 0.05vw solid #777;
             width: 100%;
@@ -52,14 +53,60 @@ const Record = ({
             background-position: center center;
           }
 
-          button:focus,
-          button:hover,
-          button:active {
+          .sleeve:focus,
+          .sleeve:hover,
+          .sleeve:active {
             outline: 0.1vw solid white;
+          }
+
+          .control-button {
+            position: absolute;
+            color: #fff;
+            background: transparent;
+            text-transform: uppercase;
+            cursor: pointer;
+            top: -0.3vw;
+            transform: translateY(-100%);
+            transition: transform 50ms ease-out;
+            border-radius: 1vw;
+            font-size: 0.7vw;
+          }
+
+          .control-button:focus,
+          .control-button:hover,
+          .control-button:active {
+            background: white;
+            color: black;
+            outline: none;
+          }
+
+          .close {
+            right: 0;
           }
         `}
       </style>
+      {isSelected && (
+        <>
+          <button
+            className="control-button save"
+            type="button"
+            onClick={() => onSave(index)}
+          >
+            Save
+          </button>
+
+          <button
+            className="control-button close"
+            type="button"
+            onClick={() => onSelect(false)}
+          >
+            X
+          </button>
+        </>
+      )}
+
       <button
+        className="sleeve"
         type="button"
         onClick={() => onSelect(index)}
         onMouseOver={() => onFocus(index)}
