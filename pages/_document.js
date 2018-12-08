@@ -14,7 +14,7 @@ export default class MyDocument extends Document {
         <Head>
           <ResetCSS />
           <link
-            href="https://fonts.googleapis.com/css?family=Boogaloo"
+            href="https://fonts.googleapis.com/css?family=Boogaloo|Bungee"
             rel="stylesheet"
           />
           <title>CSS Crate Digger - Marlonic.us</title>

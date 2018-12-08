@@ -30,7 +30,7 @@ const Loading = () => (
           top: ${unit(Bodies.Disc.diameter * SIZE_MULTIPLIER)};
           font-size: 2vw;
           letter-spacing: 0.06vw;
-          color: white;
+          color: black;
           margin-top: 1vw;
         }
 

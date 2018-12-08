@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import Loading from "../components/loading";
 import Scene from "../components/scene";
 import Crates from "../components/crates";
+import Footer from "../components/footer";
 import { Content, ContentContext } from "../components/content";
 import { MousePosition } from "../components/mouse";
 import { Camera, CameraContext } from "../components/camera";
@@ -50,5 +51,6 @@ export default () => (
       </Camera>
     </MousePosition>
     <script src="https://sdk.scdn.co/spotify-player.js" />
+    <Footer />
   </>
 );

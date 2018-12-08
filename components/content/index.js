@@ -10,7 +10,7 @@ const loadContent = async ({ setContent, accessToken }) => {
   const data = await spotify.getCrates();
 
   setContent({
-    loaded: true,
+    loaded: false,
     data
   });
 };
