@@ -28,7 +28,8 @@ const Loading = () => (
         p {
           text-transform: uppercase;
           top: ${unit(Bodies.Disc.diameter * SIZE_MULTIPLIER)};
-          font-size: 3vw;
+          font-size: 2vw;
+          letter-spacing: 0.06vw;
           color: white;
           margin-top: 1vw;
         }
@@ -45,7 +46,7 @@ const Loading = () => (
           content: "";
           border-radius: 50%;
           position: absolute;
-          background: #060606;
+          background: #303030;
         }
 
         span:after {
