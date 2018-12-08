@@ -22,12 +22,13 @@ const Record = ({
       <style jsx>
         {`
           li {
+            backface-visibility: hidden;
             transform-style: preserve-3d;
             transform-origin: 50% 100%;
             width: ${unit(Bodies.Record.width)};
             height: ${unit(Bodies.Record.height)};
             position: absolute;
-            transition: transform 150ms;
+            transition: transform 250ms cubic-bezier(0.2, 0.23, 0.51, 1.35);
             transform: ${defaultTransform};
             top: ${unit(-(Bodies.Record.width / 2))};
             left: ${unit((Bodies.Crate.width - Bodies.Record.width) / 2)};
@@ -36,6 +37,8 @@ const Record = ({
           }
 
           li.selected {
+            transition-timing-function: ease-out;
+            transition-duration: 150ms;
             transform: ${zTransform} translateY(-10vw);
           }
 
