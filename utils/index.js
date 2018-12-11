@@ -4,7 +4,7 @@ import { propOr, pathOr, pipe, addIndex, map, curry } from "ramda";
 export const Bodies = {
   Wall: {
     color1: "#030303",
-    color2: "#090909"
+    color2: "#050505"
   },
 
   Table: {
@@ -18,7 +18,7 @@ export const Bodies = {
   Crate: {
     color1: "#333",
     color2: "#555",
-    width: 10,
+    width: 12,
     height: 6,
     depth: 10.5,
     thickness: 0.5
@@ -30,8 +30,8 @@ export const Bodies = {
   },
 
   Record: {
-    width: 8.7,
-    height: 8.7
+    width: 10.7,
+    height: 10.7
   },
 
   Disc: {

@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import spotify from "../../utils/spotify";
 import { checkUserIsLoggedIn } from "../../utils";
 
-typeof window !== "undefined" && spotify.connect();
-
 const loadContent = async ({ setContent, accessToken }) => {
   spotify.setAccessToken(accessToken);
   await spotify.connect();

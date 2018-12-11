@@ -1,7 +1,7 @@
 import React from "react";
 import { unit, Bodies } from "../../utils";
 
-const SCENE_MOUSE_MOVE_AMOUNT = 50;
+const SCENE_MOUSE_MOVE_AMOUNT = 40;
 const SCENE_MOUSE_ROTATE_AMOUNT = 10;
 const SCENE_INITIAL_X_ROTATION = 50;
 

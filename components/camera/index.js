@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { MousePositionContext } from "../mouse";
 
-const CAMERA_EASE = 0.1;
+const CAMERA_EASE = 0.2;
 
 const easeMousePositions = ({ hook, mousePosition, cameraPosition }) => () => {
   const xDist = mousePosition.x - cameraPosition.x;

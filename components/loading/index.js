@@ -4,7 +4,7 @@ import { Bodies, unit } from "../../utils";
 const SIZE_MULTIPLIER = 1;
 
 const Loading = () => (
-  <main>
+  <div className="container">
     <style jsx>
       {`
         @keyframes spin {
@@ -17,8 +17,11 @@ const Loading = () => (
           }
         }
 
-        main {
+        .container {
+          background: #010101;
           position: relative;
+          width: 100vw;
+          height: 100vh;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -30,11 +33,11 @@ const Loading = () => (
           top: ${unit(Bodies.Disc.diameter * SIZE_MULTIPLIER)};
           font-size: 2vw;
           letter-spacing: 0.06vw;
-          color: black;
+          color: white;
           margin-top: 1vw;
         }
 
-        div {
+        .record {
           animation: spin 750ms infinite;
         }
 
@@ -75,11 +78,11 @@ const Loading = () => (
         }
       `}
     </style>
-    <div>
+    <div className="record">
       <span />
     </div>
     <p>loading </p>
-  </main>
+  </div>
 );
 
 export default Loading;

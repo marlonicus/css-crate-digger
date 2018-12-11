@@ -29,7 +29,7 @@ const Record = ({
             width: ${unit(Bodies.Record.width)};
             height: ${unit(Bodies.Record.height)};
             position: absolute;
-            transition: transform 250ms cubic-bezier(0.2, 0.23, 0.51, 1.35);
+            transition: transform 220ms cubic-bezier(0.2, 0.23, 0.51, 1.2);
             transform: ${defaultTransform};
             top: ${unit(-(Bodies.Record.width / 2))};
             left: ${unit((Bodies.Crate.width - Bodies.Record.width) / 2)};

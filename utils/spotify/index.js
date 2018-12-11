@@ -1,20 +1,19 @@
 /* global fetch */
 import queryString from "query-string";
-import { join, omit, map, prop, find, propEq, assoc } from "ramda";
-import randomColor from "randomcolor";
+import { join, omit, map, prop, find, propEq } from "ramda";
 import createPlayer from "./create-player";
 import { takeRandX, mapIndexed } from "../index";
 
+const NUM_CRATES = 4;
 const CUSTOM_PLAYLIST_NAME = "Crate Digger  💎";
-const CUSTOM_PLAYLIST_DESCRIPTION = "Gems found with crate-digger-2.netlify.com";
+const CUSTOM_PLAYLIST_DESCRIPTION =
+  "Gems found with crate-digger-2.netlify.com";
 
 let player;
 let market = "";
 let userId = "";
 let customPlaylist = false;
 let accessToken = "";
-
-const setBackground = item => assoc("background", randomColor())(item);
 
 const login = () => {
   const loginParams = {
@@ -110,7 +109,7 @@ const findCustomPlaylist = async () => {
 
 const getRandomGenres = async () => {
   const { genres } = await getGenreSeeds();
-  return takeRandX(5)(genres);
+  return takeRandX(NUM_CRATES)(genres);
 };
 
 const addTrackAnalysesToCrates = async ({ crates }) => {
