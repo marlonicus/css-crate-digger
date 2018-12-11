@@ -25,7 +25,17 @@ const NowPlaying = ({ track = "", artists = "", href }) => (
         }
 
         a {
+          color: #ccc;
+          font-size: 15px;
+          text-decoration: none;
+        }
+
+        a:hover {
           color: white;
+        }
+
+        a span {
+          margin-right: 10px;
         }
       `}
     </style>

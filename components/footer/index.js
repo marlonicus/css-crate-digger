@@ -17,6 +17,10 @@ const Footer = () => (
           text-decoration: none;
           color: #aaa;
         }
+
+        a:hover {
+          color: white;
+        }
       `}
     </style>
     <p>

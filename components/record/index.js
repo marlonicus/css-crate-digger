@@ -87,13 +87,13 @@ const Record = ({
       </style>
       {isSelected && (
         <>
-          {/* <button
+          <button
             className="control-button save"
             type="button"
             onClick={() => onSave(index)}
           >
             Save
-          </button> */}
+          </button>
 
           <button
             className="control-button close"
