@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { unit, Bodies } from "../../utils";
 
 const RECORD_Z_PADDING = 0.5;
@@ -13,6 +13,7 @@ const Record = ({
   ...record
 }) => {
   const zTransform = `translateZ(${unit((index + 5) * RECORD_Z_PADDING)})`;
+  const [isSaved, setSaved] = useState(false);
 
   const defaultTransform = `${zTransform}
     rotateX(${isScrolledThrough ? "-20deg" : "20deg"})
@@ -60,24 +61,49 @@ const Record = ({
           }
 
           .control-button {
+            z-index: 12;
             position: absolute;
             color: #fff;
+            vertical-align: middle;
             background: transparent;
             text-transform: uppercase;
             cursor: pointer;
-            top: -0.3vw;
-            transform: translateY(-100%);
             transition: transform 50ms ease-out;
             border-radius: 0.7vw;
+            border: none;
             font-size: 0.7vw;
+            display: block;
           }
 
           .control-button:focus,
           .control-button:hover,
           .control-button:active {
-            background: white;
-            color: black;
+            color: #ccc;
             outline: none;
+          }
+
+          .control-button {
+            transition: transform 50ms ease-out;
+          }
+
+          .saved {
+            cursor: auto;
+            color: limegreen;
+          }
+
+          .saved:hover,
+          .saved:focus,
+          .saved:active {
+            color: limegreen;
+          }
+
+          .controls {
+            display: block;
+            position: absolute;
+            transform: translateY(-1.2vw);
+            width: 100%;
+            left: 0;
+            right: 0;
           }
 
           .close {
@@ -86,13 +112,17 @@ const Record = ({
         `}
       </style>
       {isSelected && (
-        <>
+        <div className="controls">
           <button
-            className="control-button save"
+            className={`control-button save ${isSaved ? "saved" : ""}`}
             type="button"
-            onClick={() => onSave(index)}
+            onClick={() => {
+              if (isSaved) return;
+              setSaved(true);
+              onSave(index);
+            }}
           >
-            Save
+            {isSaved ? "Saved!" : "Save"}
           </button>
 
           <button
@@ -100,9 +130,9 @@ const Record = ({
             type="button"
             onClick={() => onSelect(false)}
           >
-            X
+            Close
           </button>
-        </>
+        </div>
       )}
 
       <button

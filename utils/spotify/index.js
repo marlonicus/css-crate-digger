@@ -169,7 +169,6 @@ export default {
   login,
 
   setAccessToken: token => {
-    console.log("TOKENNN", token);
     accessToken = token;
   },
 
@@ -234,8 +233,6 @@ export default {
     const genres = await getRandomGenres();
     const crates = await createBasicGenreCrates({ genres });
     const cratesWithAnalyses = await addTrackAnalysesToCrates({ crates });
-
-    // console.log(cratesWithAnalyses);
 
     return cratesWithAnalyses;
   }

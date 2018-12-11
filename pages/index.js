@@ -11,19 +11,18 @@ const Login = () => (
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #090909;
+            background: #010101;
             flex-direction: column;
+            font-family: Courier;
             color: #aaa;
           }
 
           h1 {
-            font-family: Bungee, cursive;
             font-size: 4vw;
             color: #88b7b5;
           }
 
           p {
-            font-family: Helvetica;
             letter-spacing: 0.04vw;
             font-size: 1vw;
           }
@@ -34,10 +33,9 @@ const Login = () => (
             outline: none;
             background: none;
             font-size: 4em;
-            margin-top: 10vw;
+            margin-top: 12vw;
+            font-family: Courier;
             cursor: pointer;
-
-            font-family: Bungee, cursive;
           }
 
           button:hover,

@@ -14,9 +14,7 @@ const NowPlaying = ({ track = "", artists = "", href }) => (
           font-family: Courier;
           padding: 3vw;
           font-size: 20px;
-        }
-
-        dl {
+          pointer-events: none;
         }
 
         p {
@@ -37,23 +35,26 @@ const NowPlaying = ({ track = "", artists = "", href }) => (
         a span {
           margin-right: 10px;
         }
+
+        .spotify-link {
+          pointer-events: auto;
+          display: inline-block;
+        }
       `}
     </style>
-    <dl>
-      <h2>{href ? "Now Playing:" : "Have a dig"}</h2>
-      <p>{track}</p>
-      <p>{join(", ", map(prop("name"), artists))}</p>
-      <p>
-        {href && (
-          <a href={href} target="_blank" rel="noopener noreferrer">
-            <span role="img" aria-label="link">
-              🔗
-            </span>
-            Spotify
-          </a>
-        )}
-      </p>
-    </dl>
+    <h2>{href ? "Now Playing:" : "Have a dig"}</h2>
+    <p>{track}</p>
+    <p>{join(", ", map(prop("name"), artists))}</p>
+    <p className="spotify-link">
+      {href && (
+        <a href={href} target="_blank" rel="noopener noreferrer">
+          <span role="img" aria-label="link">
+            🔗
+          </span>
+          Spotify
+        </a>
+      )}
+    </p>
   </aside>
 );
 
