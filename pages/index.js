@@ -23,6 +23,7 @@ const Login = () => (
           }
 
           p {
+            margin-top: 20px;
             letter-spacing: 0.04vw;
             font-size: 1vw;
           }

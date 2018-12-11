@@ -4,25 +4,41 @@ import Record from "../record";
 import { unit, Bodies } from "../../utils";
 
 const Label = ({ text }) => (
-  <h2>
+  <a
+    href={`https://www.google.se/search?q=Music+Genre%3A+${text}`}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
     <style jsx>
       {`
-        h2 {
-          background: white;
+        a {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          text-decoration: none;
+          text-align: center;
+          justify-content: center;
           color: #333;
+          background: white;
+        }
+
+        a:hover {
+          color: green;
+        }
+
+        h2 {
+          text-align: center;
           display: inline-block;
           font-size: ${unit(Bodies.Label.fontSize)};
-          left: 50%;
           padding: ${unit(Bodies.Label.padding)};
-          position: absolute;
           text-align: center;
           text-transform: uppercase;
-          transform: translateX(-50%);
         }
       `}
     </style>
-    {text}
-  </h2>
+    <h2>{text}</h2>
+  </a>
 );
 
 const Crate = ({

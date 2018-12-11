@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { pathOr } from "ramda";
 import Loading from "../components/loading";
 import Scene from "../components/scene";
 import Crates from "../components/crates";
@@ -18,7 +19,15 @@ const getRecord = ({ crateIndex, recordIndex, content }) => {
   return content.data[crateIndex].content.tracks[recordIndex];
 };
 
-const onSetSelectedRecord = (hook, content) => (crateIndex, recordIndex) => {
+const onSetSelectedRecord = (hook, content, previousSelectedRecord) => (
+  crateIndex,
+  recordIndex
+) => {
+  if (
+    crateIndex === previousSelectedRecord.crateIndex &&
+    recordIndex === previousSelectedRecord.recordIndex
+  )
+    return;
   if (recordIndex !== false) {
     hook({ crateIndex, recordIndex });
     const { uri } = getRecord({ crateIndex, recordIndex, content });
@@ -50,7 +59,7 @@ const App = () => {
       <NowPlaying
         artists={nowPlaying.artists}
         track={nowPlaying.name}
-        href={nowPlaying.href}
+        href={pathOr(false, ["external_urls", "spotify"], nowPlaying)}
       />
       <Scene
         selectedRecord={selectedRecord}
@@ -59,7 +68,11 @@ const App = () => {
         <Crates
           crates={content.data}
           selectedRecord={selectedRecord}
-          setSelectedRecord={onSetSelectedRecord(setSelectedRecord, content)}
+          setSelectedRecord={onSetSelectedRecord(
+            setSelectedRecord,
+            content,
+            selectedRecord
+          )}
           saveSong={(crateIndex, recordIndex) => {
             const { uri } = getRecord({ crateIndex, recordIndex, content });
             spotify.saveToPlaylist({ uri });
