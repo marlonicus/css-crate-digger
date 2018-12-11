@@ -11,8 +11,9 @@ const Footer = () => (
           transform: translateX(-50%);
         }
 
-        p, a {
-          font-family: Helvetica;
+        p,
+        a {
+          font-family: Courier;
           text-decoration: none;
           color: #aaa;
         }

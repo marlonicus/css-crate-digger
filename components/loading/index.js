@@ -35,6 +35,7 @@ const Loading = () => (
           letter-spacing: 0.06vw;
           color: white;
           margin-top: 1vw;
+          font-family: Courier;
         }
 
         .record {

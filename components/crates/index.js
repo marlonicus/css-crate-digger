@@ -5,7 +5,7 @@ import { unit, Bodies } from "../../utils";
 
 const Label = ({ text }) => (
   <h2>
-    <style>
+    <style jsx>
       {`
         h2 {
           background: white;
